@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 const Post = props => {
     return (
@@ -8,12 +8,17 @@ const Post = props => {
                 <Text>Carbonara</Text>
                 <Text>kitakoj18</Text>
             </View>
-            <View style={styles.imgContainer}>
+            <TouchableOpacity
+                style={styles.imgContainer}
+                onPress={() =>{
+                    props.onSelectDetailHandler()
+                }}
+            >
                 <Image
                     source={{ uri: "https://spoonacular.com/recipeImages/534573-312x231.jpg" }}
                     style={styles.img}
                 />
-            </View>
+            </TouchableOpacity>
             <View style={styles.footer}>
                 <Text>This is a picture of a pie!</Text>
             </View>
