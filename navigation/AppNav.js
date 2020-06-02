@@ -6,6 +6,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 
 import Feed from '../screens/Feed';
 import UserProfile from '../screens/UserProfile';
+import RecipeDetailModal from '../screens/RecipeDetailModal';
 
 const FeedNavigator = createStackNavigator({
     Feed: {
@@ -19,13 +20,27 @@ const UserNavigator = createStackNavigator({
     }
 })
 
-const RootNavigator = createBottomTabNavigator({
+const BottomNavigator = createBottomTabNavigator({
     Feed: {
         screen: FeedNavigator
     },
     UserProfile: {
         screen: UserNavigator
     }
+})
+
+const RootNavigator = createStackNavigator({
+    Main: {
+        screen: BottomNavigator,
+        navigationOptions: {
+            headerShown: false
+        }
+    },
+    RecipeDetailModal: {
+        screen: RecipeDetailModal
+    }
+}, {
+    mode: 'modal'
 })
 
 export default createAppContainer(RootNavigator);
