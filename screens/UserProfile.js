@@ -1,7 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import UserHeader from '../components/UserProfile/UserHeader';
+import AddButton from '../components/AddPost/AddButton';
 
 const UserProfile = props =>{
     return (
@@ -10,6 +12,24 @@ const UserProfile = props =>{
             <UserHeader />
         </View>
     )
+}
+
+UserProfile.navigationOptions = ({ navigation }) =>{
+    return {
+        headerRight: () =>(
+            <HeaderButtons HeaderButtonComponent={AddButton}>
+                <Item 
+                    title='Add Post'
+                    iconName='plus'
+                    onPress={() =>{
+                        navigation.navigate({
+                            routeName: 'AddPost'
+                        })
+                    }}
+                />
+            </HeaderButtons>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
