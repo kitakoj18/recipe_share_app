@@ -7,6 +7,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import Feed from '../screens/Feed';
 import UserProfile from '../screens/UserProfile';
 import RecipeDetailModal from '../screens/RecipeDetailModal';
+import AddPost from '../screens/AddPost';
 
 const FeedNavigator = createStackNavigator({
     Feed: {
@@ -38,6 +39,9 @@ const RootNavigator = createStackNavigator({
     },
     RecipeDetailModal: {
         screen: RecipeDetailModal
+    },
+    AddPost: {
+        screen: AddPost
     }
 }, {
     mode: 'modal'
