@@ -2,8 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
-import Post from '../components/Post';
-import AddButton from '../components/AddPost/AddButton';
+import Post from '../components/FeedPosts/Post';
+import AddButton from '../components/FeedPosts/AddPost/AddButton';
 
 const Feed = props =>{
 

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import UserHeader from '../components/UserProfile/UserHeader';
-import AddButton from '../components/AddPost/AddButton';
+import AddButton from '../components/FeedPosts/AddPost/AddButton';
 
 const UserProfile = props =>{
     return (
