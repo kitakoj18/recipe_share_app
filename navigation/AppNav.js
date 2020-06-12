@@ -8,6 +8,7 @@ import Feed from '../screens/Feed';
 import UserProfile from '../screens/UserProfile';
 import RecipeDetailModal from '../screens/RecipeDetailModal';
 import AddPost from '../screens/AddPost';
+import CameraScreen from '../screens/CameraScreen';
 
 const FeedNavigator = createStackNavigator({
     Feed: {
@@ -42,6 +43,9 @@ const RootNavigator = createStackNavigator({
     },
     AddPost: {
         screen: AddPost
+    },
+    CameraScreen: {
+        screen: CameraScreen
     }
 }, {
     mode: 'modal'
