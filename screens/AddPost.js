@@ -11,6 +11,7 @@ import { ScrollView,
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import NewPostInput from '../components/FeedPosts/AddPost/NewPostInput';
+import AddPostPicture from '../components/FeedPosts/AddPost/AddPostPicture';
 
 const NEW_POST_UPDATE = 'UPDATE'
 
@@ -40,6 +41,8 @@ const AddPost = props =>{
         }
     })
 
+    const [imgUri, setImgUri] = useState('');
+
     const inputChangeHandler = (inputType, text) =>{
         dispatchPostState({
             type: NEW_POST_UPDATE,
@@ -47,6 +50,19 @@ const AddPost = props =>{
             inputType: inputType
         })
     };
+
+    const onSelectPicture = (imgUri) =>{
+        setImgUri(imgUri)
+    }
+
+    const onOpenCameraHandler = () =>{
+        props.navigation.navigate({
+            routeName: 'CameraScreen',
+            params: {
+                onSelectPicture: onSelectPicture.bind(this)
+            }
+        })
+    }
 
     const onSubmitHandler = () =>{
         props.navigation.goBack()
@@ -117,12 +133,26 @@ const AddPost = props =>{
                             multiline={true}
                             onChangeText={inputChangeHandler.bind(this, 'recipeInstructions')}
                         />
+
+                        <Text style={styles.label}>
+                            Dish Photos: 
+                        </Text>
+                        <View style={styles.addImg}>
+                            <AddPostPicture 
+                                imgUri={imgUri}
+                                onOpenCamera={onOpenCameraHandler}
+                            />
+                        </View>
+
                     </View>
                     
-                    <Button 
-                        title='POST!'
-                        onPress={onSubmitHandler}
-                    />
+                    <View style={styles.postButtonArea}>
+                        <Button 
+                            title='POST!'
+                            onPress={onSubmitHandler}
+                        />
+                    </View>
+                    
                 </View>
             </TouchableWithoutFeedback>
         </KeyboardAwareScrollView>
@@ -135,13 +165,14 @@ const AddPost = props =>{
 
 AddPost.navigationOptions = ({ navigation }) =>{
     return {
-        headerLeft: () => (null)
+        // add back button 
+        // headerLeft: () => (null)
     }
 }
 
 const styles = StyleSheet.create({
     form: {
-      margin: 20  
+      margin: 20,
     },
     label: {
         fontSize: 15,
@@ -159,6 +190,15 @@ const styles = StyleSheet.create({
         flex: 1,
         textAlignVertical: 'top',
         height: 150
+    },
+    addImg: {
+        height: 200,
+        width: '100%',
+        borderColor: '#ccc',
+        borderWidth: 1
+    },
+    postButtonArea: {
+        marginBottom: 40,
     }
 });
 
