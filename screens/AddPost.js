@@ -8,10 +8,12 @@ import { ScrollView,
         Button, 
         Keyboard } from 'react-native';
 
+import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import NewPostInput from '../components/FeedPosts/AddPost/NewPostInput';
 import AddPostPicture from '../components/FeedPosts/AddPost/AddPostPicture';
+import ExitButton from '../components/RecipeDetail/ExitButton';
 
 const NEW_POST_UPDATE = 'UPDATE'
 
@@ -165,8 +167,18 @@ const AddPost = props =>{
 
 AddPost.navigationOptions = ({ navigation }) =>{
     return {
-        // add back button 
-        // headerLeft: () => (null)
+        headerLeft: () => (null),
+        headerRight: () => (
+            <HeaderButtons HeaderButtonComponent={ExitButton}>
+                <Item 
+                    title='Close'
+                    iconName='close'
+                    onPress={() =>{
+                        navigation.goBack()
+                    }}
+                />
+            </HeaderButtons>
+        )
     }
 }
 
