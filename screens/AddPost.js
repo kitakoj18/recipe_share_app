@@ -6,10 +6,13 @@ import { ScrollView,
         TextInput, 
         TouchableWithoutFeedback, 
         Button, 
-        Keyboard } from 'react-native';
+        Keyboard,
+        Platform } from 'react-native';
 
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
+import axios from 'axios'; 
 
 import NewPostInput from '../components/FeedPosts/AddPost/NewPostInput';
 import AddPostPicture from '../components/FeedPosts/AddPost/AddPostPicture';
@@ -36,6 +39,7 @@ const AddPost = props =>{
     const [newPostState, dispatchPostState] = useReducer(postReducer,{
         inputVals: {
             recipeTitle: '',
+            description: '',
             prepTime: null,
             cookTime: null,
             recipeIngredients: '',
@@ -67,6 +71,55 @@ const AddPost = props =>{
     }
 
     const onSubmitHandler = () =>{
+
+        const formData = new FormData();
+        formData.append('title', newPostState.inputVals.recipeTitle);
+        formData.append('description', newPostState.inputVals.description);
+        formData.append('prepTime', newPostState.inputVals.prepTime);
+        formData.append('cookTime', newPostState.inputVals.cookTime);
+        formData.append('ingredients', newPostState.inputVals.recipeIngredients);
+        formData.append('instructions', newPostState.inputVals.recipeInstructions);
+        const fileName = imgUri.split('/').pop();
+        formData.append('image', {
+            uri: Platform.OS === 'android' ? imgUri: imgUri.replace('file://', ''),
+            name: fileName,
+            type: 'image/jpg'
+        });
+
+        // console.log(imgUri);
+
+        const postRoute = 'http://localhost:8080/posts/post';
+
+        axios({
+            method: 'post',
+            url: postRoute,
+            data: formData,
+            headers: {'Content-Type': 'multipart/form-data'}
+        })
+            .then(res =>{
+                if(res.status !== 200 && res.status !== 201){
+                    throw new Error('Creating a post failed')
+                }
+            })
+            .catch(err => console.log(err))
+
+        // const config = {
+        //     data: formData,
+        //     headers: {
+        //         'Content-Type': 'multipart/form-data'
+        //     }
+        // }
+
+        console.log('submitted!')
+
+        // axios.post(postRoute, config)
+        //     .then(res =>{
+        //         if(res.status !== 200 && res.status !== 201){
+        //             throw new Error('Creating a post failed')
+        //         }
+        //     })
+        //     .catch(err => console.log(err))
+
         props.navigation.goBack()
     };
 
@@ -96,8 +149,8 @@ const AddPost = props =>{
                         </Text>
                         <TextInput 
                             style={styles.input}
-                            value={newPostState.inputVals.recipeTitle}
-                            onChangeText={inputChangeHandler.bind(this, 'recipeTitle')}
+                            value={newPostState.inputVals.description}
+                            onChangeText={inputChangeHandler.bind(this, 'description')}
                         />
                         <Text style={styles.label}>
                             Prep Time: 

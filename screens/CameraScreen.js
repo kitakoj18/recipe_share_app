@@ -55,6 +55,8 @@ class CameraScreen extends Component {
             )
         }
         if(img){
+
+            console.log(img)
             return(
                 <ImgPreview
                     imgUri={img.uri}
