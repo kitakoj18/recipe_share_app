@@ -5,7 +5,7 @@ const Post = props => {
     return (
         <View style={styles.post}>
             <View style={styles.header}>
-                <Text>Carbonara</Text>
+                <Text>{props.recipeTitle}</Text>
                 <Text>kitakoj18</Text>
             </View>
             <TouchableOpacity
@@ -15,12 +15,12 @@ const Post = props => {
                 }}
             >
                 <Image
-                    source={{ uri: "https://spoonacular.com/recipeImages/534573-312x231.jpg" }}
+                    source={{ uri: props.imgUri }}
                     style={styles.img}
                 />
             </TouchableOpacity>
             <View style={styles.footer}>
-                <Text>This is a picture of a pie!</Text>
+                <Text>{props.description}</Text>
             </View>
         </View>
     )
