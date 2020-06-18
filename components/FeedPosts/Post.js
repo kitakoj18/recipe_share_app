@@ -11,7 +11,7 @@ const Post = props => {
             <TouchableOpacity
                 style={styles.imgContainer}
                 onPress={() =>{
-                    props.onSelectDetailHandler()
+                    props.onSelectDetailHandler(props.id)
                 }}
             >
                 <Image

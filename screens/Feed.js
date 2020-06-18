@@ -23,6 +23,7 @@ const Feed = props =>{
 
     const renderPosts = (result) =>{
 
+        const id = result.item._id;
         const recipeTitle = result.item.recipeTitle;
         const description = result.item.description;
         const imgUri = 'http://localhost:8080/' + result.item.imageUrl;
@@ -32,6 +33,7 @@ const Feed = props =>{
         return(
             <Post 
                 onSelectDetailHandler={onSelectDetailHandler}
+                id={id}
                 recipeTitle={recipeTitle}
                 imgUri={imgUri}
                 description={description}
@@ -41,12 +43,12 @@ const Feed = props =>{
         )
     }
 
-    const onSelectDetailHandler = () => {
+    const onSelectDetailHandler = (id) => {
         props.navigation.navigate({
             routeName: 'RecipeDetailModal',
-            // params: {
-            //     selectedId: id
-            // }
+            params: {
+                selectedId: id
+            }
         })
     }
 
