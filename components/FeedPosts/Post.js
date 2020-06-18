@@ -6,7 +6,7 @@ const Post = props => {
         <View style={styles.post}>
             <View style={styles.header}>
                 <Text>{props.recipeTitle}</Text>
-                <Text>kitakoj18</Text>
+                <Text>Chef {props.chefName}</Text>
             </View>
             <TouchableOpacity
                 style={styles.imgContainer}

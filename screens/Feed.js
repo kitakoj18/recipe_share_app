@@ -23,8 +23,11 @@ const Feed = props =>{
 
     const renderPosts = (result) =>{
 
+        console.log(result.item)
+
         const id = result.item._id;
         const recipeTitle = result.item.recipeTitle;
+        const chefName = result.item.chef.name;
         const description = result.item.description;
         const imgUri = 'http://localhost:8080/' + result.item.imageUrl;
         const prepTime = result.item.prepTime.toString();
@@ -35,6 +38,7 @@ const Feed = props =>{
                 onSelectDetailHandler={onSelectDetailHandler}
                 id={id}
                 recipeTitle={recipeTitle}
+                chefName={chefName}
                 imgUri={imgUri}
                 description={description}
                 prepTime={prepTime}

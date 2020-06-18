@@ -30,7 +30,11 @@ const RecipeDetailModal = props =>{
 
         return (
             <View style={styles.screen}>
-                <Text>{recipeDetails.recipeTitle}</Text>
+                <View style={styles.header}>
+                    <Text>{recipeDetails.recipeTitle}</Text>
+                    <Text>Chef {recipeDetails.chef.name}</Text>
+                </View>
+                
                 <View style={styles.imgContainer}>
                     <Image
                         source={{uri: imgUri}}
@@ -78,6 +82,10 @@ const styles = StyleSheet.create({
         padding: 10,
         height: '100%',
         width: '100%'
+    },
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
     },
     imgContainer: {
         height: '50%',
