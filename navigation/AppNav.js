@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { createAppContainer } from 'react-navigation';
+import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+import Login from '../screens/Login';
 import Feed from '../screens/Feed';
 import UserProfile from '../screens/UserProfile';
 import RecipeDetailModal from '../screens/RecipeDetailModal';
@@ -31,7 +32,7 @@ const BottomNavigator = createBottomTabNavigator({
     }
 })
 
-const RootNavigator = createStackNavigator({
+const AppNavigator = createStackNavigator({
     Main: {
         screen: BottomNavigator,
         navigationOptions: {
@@ -49,6 +50,11 @@ const RootNavigator = createStackNavigator({
     }
 }, {
     mode: 'modal'
+})
+
+const RootNavigator = createStackNavigator({
+    Login: Login,
+    App: AppNavigator
 })
 
 export default createAppContainer(RootNavigator);
