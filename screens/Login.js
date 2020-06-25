@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Button } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
+import axios from 'axios'; 
+
 import LoginForm from '../components/Login/LoginForm';
 import SignupForm from '../components/Login/SignupForm';
 
@@ -46,12 +48,29 @@ const Login = props =>{
     );
 
     const switchToHandler = () =>{
-        const switchType = !showLogin
-        setShowLogin(switchType)
+        // const switchType = !showLogin
+        setShowLogin(!showLogin);
     }
 
     const onLoginHandler = () =>{
+        if(showLogin){
 
+        }
+        else{
+            const authRoute = 'http://localhost:8080/auth/signup';
+            const body = {
+                email: inputState.inputVals.email, 
+                password: inputState.inputVals.password,
+                name: inputState.inputVals.name,
+                userName: inputState.inputVals.userName
+            }
+
+            axios.put(authRoute, body)
+                .then()
+                .catch(err =>{console.log(err)})
+
+            setShowLogin(!showLogin);
+        }
     }
 
     return (
