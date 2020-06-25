@@ -1,5 +1,8 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useReducer, useCallback } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+
+import LoginForm from '../components/Login/LoginForm';
+import SignupForm from '../components/Login/SignupForm';
 
 const USER_INPUT_UPDATE = 'LOGIN_UPDATE';
 
@@ -28,26 +31,41 @@ const Login = props =>{
             name: '',
             userName: ''
         }
-    })
+    });
 
-    const userInputChangeHandler = (inputType, text) =>{
-        dispatchInputState({
-            type: USER_INPUT_UPDATE,
-            inputType: inputType,
-            value: text
-        })
-    }
+    const userInputChangeHandler = useCallback((inputType, text) =>{
+            dispatchInputState({
+                type: USER_INPUT_UPDATE,
+                inputType: inputType,
+                value: text
+            })
+        },
+        [dispatchInputState]
+    );
 
     return (
-        <View>
-            <Text>This is the login page</Text>
-            <Text>Not a user? Sign up here</Text>
+        <View style={styles.screen}>
+            {showLogin ? 
+                <LoginForm
+                    emailValue={inputState.inputVals.email}
+                    pwValue={inputState.inputVals.password}
+                    inputChangeHandler={userInputChangeHandler}
+                /> :
+                <SignupForm 
+                
+                />   
+            }
+            
         </View>
     )
-}
+};
 
 const styles = StyleSheet.create({
-
+    screen: {
+        padding: 10,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 
 export default Login; 
