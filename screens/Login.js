@@ -1,6 +1,8 @@
 import React, { useState, useReducer, useCallback } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
 
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+
 import LoginForm from '../components/Login/LoginForm';
 import SignupForm from '../components/Login/SignupForm';
 
@@ -53,37 +55,38 @@ const Login = props =>{
     }
 
     return (
-        <View style={styles.screen}>
+        <KeyboardAwareScrollView>
+            <View style={styles.screen}>
 
-            <View style={styles.logo}>
-                <Text style={styles.logoText}>FoodFetish</Text>
+                <View style={styles.logo}>
+                    <Text style={styles.logoText}>FoodFetish</Text>
+                </View>
+
+                {showLogin ? 
+                    <LoginForm
+                        emailValue={inputState.inputVals.email}
+                        pwValue={inputState.inputVals.password}
+                        inputChangeHandler={userInputChangeHandler}
+                        switchToHandler={switchToHandler}
+                    /> :
+                    <SignupForm 
+                        nameValue={inputState.inputVals.name}
+                        userNameValue={inputState.inputVals.userName}
+                        emailValue={inputState.inputVals.email}
+                        pwValue={inputState.inputVals.password}
+                        inputChangeHandler={userInputChangeHandler}
+                        switchToHandler={switchToHandler}
+                    />   
+                }
+                
+                <View style={styles.button}>
+                    <Button 
+                        title={showLogin ? 'Login' : 'Signup!'}
+                        onPress={onLoginHandler}
+                    />
+                </View>
             </View>
-
-            {showLogin ? 
-                <LoginForm
-                    emailValue={inputState.inputVals.email}
-                    pwValue={inputState.inputVals.password}
-                    inputChangeHandler={userInputChangeHandler}
-                    switchToHandler={switchToHandler}
-                /> :
-                <SignupForm 
-                    nameValue={inputState.inputVals.name}
-                    userNameValue={inputState.inputVals.userName}
-                    emailValue={inputState.inputVals.email}
-                    pwValue={inputState.inputVals.password}
-                    inputChangeHandler={userInputChangeHandler}
-                    switchToHandler={switchToHandler}
-                />   
-            }
-            
-            <View style={styles.button}>
-                <Button 
-                    title={showLogin ? 'Login' : 'Signup!'}
-                    onPress={onLoginHandler}
-                />
-            </View>
-
-        </View>
+        </KeyboardAwareScrollView>
     )
 };
 

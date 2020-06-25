@@ -1,78 +1,74 @@
 import React from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback } from 'react-native';
-
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { View, Text, StyleSheet, TextInput, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 const SignupForm = props =>{
     return(
-        <KeyboardAwareScrollView>
-            <TouchableWithoutFeedback onPress={()=>{
-                Keyboard.dismiss();
-            }}>
-                <View style={styles.loginForm}>
-                    <Text>
-                        Name:
-                    </Text>
-                    <TextInput 
-                        value={props.nameValue}
-                        style={styles.input}
-                        required
-                        autoCapitalize='none'
-                        onChangeText={(text) =>{
-                            props.inputChangeHandler('name', text)
-                        }}
-                    />
-                    <Text>
-                        UserName:
-                    </Text>
-                    <TextInput 
-                        value={props.userNameValue}
-                        style={styles.input}
-                        required
-                        autoCapitalize='none'
-                        onChangeText={(text) =>{
-                            props.inputChangeHandler('userName', text)
-                        }}
-                    />
-                    <Text>
-                        E-mail:
-                    </Text>
-                    <TextInput 
-                        value={props.emailValue}
-                        style={styles.input}
-                        keyboardType='email-address'
-                        required
-                        autoCapitalize='none'
-                        onChangeText={(text) =>{
-                            props.inputChangeHandler('email', text)
-                        }}
-                    />
-                    <Text>
-                        Password:
-                    </Text>
-                    <TextInput 
-                        value={props.pwValue}
-                        style={styles.input}
-                        required
-                        autoCapitalize='none'
-                        secureTextEntry
-                        onChangeText={(text) =>{
-                            props.inputChangeHandler('password', text)
-                        }}
-                    />
+        <TouchableWithoutFeedback onPress={()=>{
+            Keyboard.dismiss();
+        }}>
+            <View style={styles.loginForm}>
+                <Text>
+                    Name:
+                </Text>
+                <TextInput 
+                    value={props.nameValue}
+                    style={styles.input}
+                    required
+                    autoCapitalize='none'
+                    onChangeText={(text) =>{
+                        props.inputChangeHandler('name', text)
+                    }}
+                />
+                <Text>
+                    UserName:
+                </Text>
+                <TextInput 
+                    value={props.userNameValue}
+                    style={styles.input}
+                    required
+                    autoCapitalize='none'
+                    onChangeText={(text) =>{
+                        props.inputChangeHandler('userName', text)
+                    }}
+                />
+                <Text>
+                    E-mail:
+                </Text>
+                <TextInput 
+                    value={props.emailValue}
+                    style={styles.input}
+                    keyboardType='email-address'
+                    required
+                    autoCapitalize='none'
+                    onChangeText={(text) =>{
+                        props.inputChangeHandler('email', text)
+                    }}
+                />
+                <Text>
+                    Password:
+                </Text>
+                <TextInput 
+                    value={props.pwValue}
+                    style={styles.input}
+                    required
+                    autoCapitalize='none'
+                    secureTextEntry
+                    onChangeText={(text) =>{
+                        props.inputChangeHandler('password', text)
+                    }}
+                />
 
-                    <View style={styles.switchToText}>
-                        <Text>Already a user? Login </Text> 
-                        <Text
-                            style={styles.switchLink}
-                            onPress={props.switchToHandler}
-                        >
-                            here
-                        </Text>
-                    </View>
+                <View style={styles.switchToText}>
+                    <Text>Already a user? Login </Text> 
+                    <Text
+                        style={styles.switchLink}
+                        onPress={props.switchToHandler}
+                    >
+                        here
+                    </Text>
                 </View>
-            </TouchableWithoutFeedback>
-        </KeyboardAwareScrollView>
+            </View>
+        </TouchableWithoutFeedback>
     )
 }
 
