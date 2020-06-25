@@ -43,13 +43,22 @@ const Login = props =>{
         [dispatchInputState]
     );
 
+    const switchToHandler = () =>{
+        const switchType = !showLogin
+        setShowLogin(switchType)
+    }
+
     return (
         <View style={styles.screen}>
+
+            <Text style={styles.logoText}>FoodFetish</Text>
+
             {showLogin ? 
                 <LoginForm
                     emailValue={inputState.inputVals.email}
                     pwValue={inputState.inputVals.password}
                     inputChangeHandler={userInputChangeHandler}
+                    switchToHandler={switchToHandler}
                 /> :
                 <SignupForm 
                 
@@ -62,9 +71,13 @@ const Login = props =>{
 
 const styles = StyleSheet.create({
     screen: {
+        // flex: 1,
         padding: 10,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    logoText: {
+        marginVertical: 40
     }
 });
 

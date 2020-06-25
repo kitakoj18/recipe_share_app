@@ -31,7 +31,15 @@ const LoginForm = props =>{
                 }}
             />
 
-            <Text>Not a user? Sign up here</Text> 
+            <View style={styles.switchToText}>
+                <Text>Not a user? Sign up </Text> 
+                <Text
+                    style={styles.switchLink}
+                    onPress={props.switchToHandler}
+                >
+                    here
+                </Text>
+            </View>
         </View>
     )
 };
@@ -45,6 +53,13 @@ const styles = StyleSheet.create({
         paddingVertical: 5,
         borderBottomColor: '#ccc',
         borderBottomWidth: 1
+    },
+    switchToText: {
+        flexDirection: 'row'
+    },
+    switchLink:{
+        color: 'blue',
+        textDecorationLine: 'underline'
     }
 });
 
