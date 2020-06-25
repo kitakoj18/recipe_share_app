@@ -61,7 +61,12 @@ const Login = props =>{
                     switchToHandler={switchToHandler}
                 /> :
                 <SignupForm 
-                
+                    nameValue={inputState.inputVals.name}
+                    userNameValue={inputState.inputVals.userName}
+                    emailValue={inputState.inputVals.email}
+                    pwValue={inputState.inputVals.password}
+                    inputChangeHandler={userInputChangeHandler}
+                    switchToHandler={switchToHandler}
                 />   
             }
             
