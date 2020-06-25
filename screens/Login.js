@@ -51,7 +51,9 @@ const Login = props =>{
     return (
         <View style={styles.screen}>
 
-            <Text style={styles.logoText}>FoodFetish</Text>
+            <View style={styles.logo}>
+                <Text style={styles.logoText}>FoodFetish</Text>
+            </View>
 
             {showLogin ? 
                 <LoginForm
@@ -78,7 +80,10 @@ const styles = StyleSheet.create({
     screen: {
         // flex: 1,
         padding: 10,
-        justifyContent: 'center',
+        // justifyContent: 'center',
+        // alignItems: 'center'
+    },
+    logo: {
         alignItems: 'center'
     },
     logoText: {
