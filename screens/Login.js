@@ -1,5 +1,5 @@
 import React, { useState, useReducer, useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
 import LoginForm from '../components/Login/LoginForm';
 import SignupForm from '../components/Login/SignupForm';
@@ -48,6 +48,10 @@ const Login = props =>{
         setShowLogin(switchType)
     }
 
+    const onLoginHandler = () =>{
+
+    }
+
     return (
         <View style={styles.screen}>
 
@@ -72,6 +76,13 @@ const Login = props =>{
                 />   
             }
             
+            <View style={styles.button}>
+                <Button 
+                    title={showLogin ? 'Login' : 'Signup!'}
+                    onPress={onLoginHandler}
+                />
+            </View>
+
         </View>
     )
 };
@@ -88,6 +99,9 @@ const styles = StyleSheet.create({
     },
     logoText: {
         marginVertical: 40
+    },
+    button: {
+        marginTop: 20
     }
 });
 
