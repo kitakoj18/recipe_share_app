@@ -7,6 +7,7 @@ import axios from 'axios';
 
 import LoginForm from '../components/Login/LoginForm';
 import SignupForm from '../components/Login/SignupForm';
+import * as authActions from '../store/actions/auth';
 
 const USER_INPUT_UPDATE = 'LOGIN_UPDATE';
 
@@ -62,6 +63,16 @@ const Login = props =>{
 
     const onLoginHandler = async () =>{
         
+        setError(null);
+        const action = authActions.login(inputState.inputVals.email, inputState.inputVals.password);
+        try{
+            await dispatch(action);
+            props.navigation.navigate('App');
+        }
+        catch(err){
+            const errorMsg = err.response.data.message;
+            setError(errorMsg);
+        }
     }
 
     const onSignUpHandler = () =>{
