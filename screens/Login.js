@@ -1,5 +1,5 @@
-import React, { useState, useReducer, useCallback } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import React, { useState, useEffect, useReducer, useCallback } from 'react';
+import { View, Text, StyleSheet, Button, Alert } from 'react-native';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -27,6 +27,7 @@ const userInputReducer = (state, action) =>{
 const Login = props =>{
 
     const [showLogin, setShowLogin] = useState(true);
+    const [error, setError] = useState();
 
     const [inputState, dispatchInputState] = useReducer(userInputReducer, {
         inputVals: {
@@ -52,12 +53,23 @@ const Login = props =>{
         setShowLogin(!showLogin);
     }
 
-    const onLoginHandler = () =>{
-        if(showLogin){
+    // alert user if there's an error
+    useEffect(() =>{
+        if(error){
+            Alert.alert(error, [{text: 'Try Again'}]);
+        }
+    }, [error])
 
+    const onLoginHandler = () =>{
+
+        setError(null);
+
+        if(showLogin){
+            
         }
         else{
             const authRoute = 'http://localhost:8080/auth/signup';
+            // const authRoute = '104.32.92.60:8080/auth/signup';
             const body = {
                 email: inputState.inputVals.email, 
                 password: inputState.inputVals.password,
@@ -67,9 +79,10 @@ const Login = props =>{
 
             axios.put(authRoute, body)
                 .then()
-                .catch(err =>{console.log(err)})
-
-            setShowLogin(!showLogin);
+                .catch(err =>{
+                    const errorMsg = err.response.data.message;
+                    setError(errorMsg);
+                })
         }
     }
 
@@ -111,13 +124,13 @@ const Login = props =>{
 
 const styles = StyleSheet.create({
     screen: {
-        // flex: 1,
+        flex: 1,
         padding: 10,
-        // justifyContent: 'center',
-        // alignItems: 'center'
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     logo: {
-        alignItems: 'center'
+        // alignItems: 'center'
     },
     logoText: {
         marginVertical: 40

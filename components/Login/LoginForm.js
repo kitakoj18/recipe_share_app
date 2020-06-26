@@ -15,6 +15,8 @@ const LoginForm = props =>{
                     style={styles.input}
                     keyboardType='email-address'
                     required
+                    autoCompleteType='off'
+                    autoCorrect={false}
                     autoCapitalize='none'
                     onChangeText={(text) =>{
                         props.inputChangeHandler('email', text)
@@ -27,6 +29,8 @@ const LoginForm = props =>{
                     value={props.pwValue}
                     style={styles.input}
                     required
+                    autoCompleteType='off'
+                    autoCorrect={false}
                     autoCapitalize='none'
                     secureTextEntry
                     onChangeText={(text) =>{
@@ -50,7 +54,7 @@ const LoginForm = props =>{
 
 const styles = StyleSheet.create({
     loginForm: {
-        width: '100%'
+        width: '80%'
     },
     input: {
         marginBottom: 10,
