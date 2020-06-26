@@ -1,3 +1,5 @@
+import { AsyncStorage } from 'react-native';
+
 import axios from 'axios'; 
 
 export const LOGIN = 'LOGIN';
@@ -23,5 +25,17 @@ export const login = (email, password) =>{
             token: resData.token,
             userId: resData.userId
         })
+
+        saveUserDataToStorage(resData.token, resData.userId);
     };
 };
+
+const saveUserDataToStorage = (token, userId) =>{
+    AsyncStorage.setItem(
+        'userData',
+        JSON.stringify({
+            token: token,
+            userId: userId
+        })
+    )
+}
