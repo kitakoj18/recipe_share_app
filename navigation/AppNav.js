@@ -52,7 +52,7 @@ const AppNavigator = createStackNavigator({
     mode: 'modal'
 })
 
-const RootNavigator = createStackNavigator({
+const RootNavigator = createSwitchNavigator({
     Login: Login,
     App: AppNavigator
 })
