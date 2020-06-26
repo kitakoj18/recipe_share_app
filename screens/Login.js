@@ -60,30 +60,30 @@ const Login = props =>{
         }
     }, [error])
 
-    const onLoginHandler = () =>{
+    const onLoginHandler = async () =>{
+        
+    }
+
+    const onSignUpHandler = () =>{
 
         setError(null);
-
-        if(showLogin){
-            
+        const authRoute = 'http://localhost:8080/auth/signup';
+        // const authRoute = '104.32.92.60:8080/auth/signup';
+        const body = {
+            email: inputState.inputVals.email, 
+            password: inputState.inputVals.password,
+            name: inputState.inputVals.name,
+            userName: inputState.inputVals.userName
         }
-        else{
-            const authRoute = 'http://localhost:8080/auth/signup';
-            // const authRoute = '104.32.92.60:8080/auth/signup';
-            const body = {
-                email: inputState.inputVals.email, 
-                password: inputState.inputVals.password,
-                name: inputState.inputVals.name,
-                userName: inputState.inputVals.userName
-            }
 
-            axios.put(authRoute, body)
-                .then()
-                .catch(err =>{
-                    const errorMsg = err.response.data.message;
-                    setError(errorMsg);
-                })
-        }
+        axios.put(authRoute, body)
+            .then(res =>{
+                setShowLogin(!showLogin);
+            })
+            .catch(err =>{
+                const errorMsg = err.response.data.message;
+                setError(errorMsg);
+            })
     }
 
     return (
@@ -114,7 +114,7 @@ const Login = props =>{
                 <View style={styles.button}>
                     <Button 
                         title={showLogin ? 'Login' : 'Signup!'}
-                        onPress={onLoginHandler}
+                        onPress={showLogin ? onLoginHandler : onSignUpHandler}
                     />
                 </View>
             </View>
