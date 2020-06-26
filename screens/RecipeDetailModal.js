@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Text, Image } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 
 import ExitButton from '../components/RecipeDetail/ExitButton';
@@ -11,12 +13,20 @@ const RecipeDetailModal = props =>{
     const [recipeDetails, setRecipeDetails] = useState();
     const [isLoading, setIsLoading] = useState(true);
 
+    const { token } = useSelector(state => state.auth);
+
     useEffect(()=>{
+
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
 
         const selectedPostId = props.navigation.getParam('selectedId');
         const getPostPath = 'http://localhost:8080/posts/get/' + selectedPostId;
 
-        axios.get(getPostPath)
+        axios.get(getPostPath, config)
             .then(response =>{
                 const selectedRecipe = response.data.post;
                 setRecipeDetails(selectedRecipe);
