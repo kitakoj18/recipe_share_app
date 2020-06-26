@@ -9,6 +9,8 @@ import { ScrollView,
         Keyboard,
         Platform } from 'react-native';
 
+import { useSelector } from 'react-redux';
+
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -48,6 +50,8 @@ const AddPost = props =>{
     })
 
     const [imgUri, setImgUri] = useState('');
+
+    const { token } = useSelector(state => state.auth);
 
     const inputChangeHandler = (inputType, text) =>{
         dispatchPostState({
@@ -89,13 +93,13 @@ const AddPost = props =>{
         // console.log(imgUri);
 
         const postRoute = 'http://localhost:8080/posts/post';
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
 
-        axios({
-            method: 'post',
-            url: postRoute,
-            data: formData,
-            headers: {'Content-Type': 'multipart/form-data'}
-        })
+        axios.post(postRoute, formData, config)
             .then(res =>{
                 if(res.status !== 200 && res.status !== 201){
                     throw new Error('Creating a post failed')
