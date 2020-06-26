@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useReducer, useCallback } from 'react';
 import { View, Text, StyleSheet, Button, Alert } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
@@ -29,6 +30,8 @@ const Login = props =>{
 
     const [showLogin, setShowLogin] = useState(true);
     const [error, setError] = useState();
+
+    const dispatch = useDispatch();
 
     const [inputState, dispatchInputState] = useReducer(userInputReducer, {
         inputVals: {
@@ -70,7 +73,7 @@ const Login = props =>{
             props.navigation.navigate('App');
         }
         catch(err){
-            const errorMsg = err.response.data.message;
+            const errorMsg = err.response.data.errorMsg;
             setError(errorMsg);
         }
     }

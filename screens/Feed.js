@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet } from 'react-native';
 import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
+import { useSelector } from 'react-redux';
+
 import axios from 'axios';
 
 import Post from '../components/FeedPosts/Post';
@@ -11,9 +13,17 @@ const Feed = props =>{
 
     const [uploadedPosts, setUploadedPosts] = useState();
 
+    const { token, userId } = useSelector(state => state.auth)
+
     useEffect(() =>{
 
-        axios.get('http://localhost:8080/posts/get')
+        const config = {
+            headers: {
+                Authorization: 'Bearer ' + token
+            }
+        }
+
+        axios.get('http://localhost:8080/posts/get', config)
             .then(response =>{
                 const retrievedPosts = response.data.posts;
                 setUploadedPosts(retrievedPosts);

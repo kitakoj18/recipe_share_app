@@ -19,7 +19,7 @@ export const login = (email, password) =>{
             throw new Error(res.errorMsg);
         }
 
-        const resData = res.data;
+        const resData = await res.data;
         dispatch({
             type: LOGIN,
             token: resData.token,
