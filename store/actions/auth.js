@@ -26,16 +26,22 @@ export const login = (email, password) =>{
             userId: resData.userId
         })
 
-        saveUserDataToStorage(resData.token, resData.userId);
+        //save expirationDate into constant
+        //expiration length (1H) provided by backend in MS as a string
+        //new Date().getTime() gives current time in MS so wrap it in another new Date to timestamp date
+        const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn));
+
+        saveUserDataToStorage(resData.token, resData.userId, expirationDate);
     };
 };
 
-const saveUserDataToStorage = (token, userId) =>{
+const saveUserDataToStorage = (token, userId, expirationDate) =>{
     AsyncStorage.setItem(
         'userData',
         JSON.stringify({
             token: token,
-            userId: userId
+            userId: userId,
+            expirationDate: expirationDate.toISOString()
         })
     )
 }
