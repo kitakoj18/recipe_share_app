@@ -22,8 +22,7 @@ export const login = (email, password) =>{
         const resData = await res.data;
         dispatch({
             type: LOGIN,
-            token: resData.token,
-            userId: resData.userId
+            token: resData.token
         })
 
         //save expirationDate into constant
@@ -31,16 +30,15 @@ export const login = (email, password) =>{
         //new Date().getTime() gives current time in MS so wrap it in another new Date to timestamp date
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn));
 
-        saveUserDataToStorage(resData.token, resData.userId, expirationDate);
+        saveUserDataToStorage(resData.token, expirationDate);
     };
 };
 
-const saveUserDataToStorage = (token, userId, expirationDate) =>{
+const saveUserDataToStorage = (token, expirationDate) =>{
     AsyncStorage.setItem(
         'userData',
         JSON.stringify({
             token: token,
-            userId: userId,
             expirationDate: expirationDate.toISOString()
         })
     )

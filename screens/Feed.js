@@ -13,7 +13,7 @@ const Feed = props =>{
 
     const [uploadedPosts, setUploadedPosts] = useState();
 
-    const { token, userId } = useSelector(state => state.auth)
+    const { token } = useSelector(state => state.auth)
 
     useEffect(() =>{
 
