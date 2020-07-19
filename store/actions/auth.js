@@ -2,7 +2,11 @@ import { AsyncStorage } from 'react-native';
 
 import axios from 'axios'; 
 
-export const LOGIN = 'LOGIN';
+export const AUTHENTICATE = 'AUTHENTICATE';
+
+export const authenticate = (token) =>{
+    return {type: AUTHENTICATE, token: token};
+};
 
 export const login = (email, password) =>{
 
@@ -16,14 +20,12 @@ export const login = (email, password) =>{
         const res = await axios.post(authRoute, body)
         if(res.errorMsg){
             //send alert with error message to user ie if email or password is incorrect
+            //or that email does not exist
             throw new Error(res.errorMsg);
         }
 
         const resData = await res.data;
-        dispatch({
-            type: LOGIN,
-            token: resData.token
-        })
+        dispatch(authenticate(resData.token));
 
         //save expirationDate into constant
         //expiration length (1H) provided by backend in MS as a string
