@@ -4,6 +4,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 
+import StartUp from '../screens/StartUp';
 import Login from '../screens/Login';
 import Feed from '../screens/Feed';
 import UserProfile from '../screens/UserProfile';
@@ -53,6 +54,7 @@ const AppNavigator = createStackNavigator({
 })
 
 const RootNavigator = createSwitchNavigator({
+    StartUp: StartUp,
     Login: Login,
     App: AppNavigator
 })
