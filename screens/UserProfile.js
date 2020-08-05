@@ -4,6 +4,7 @@ import { HeaderButtons, Item } from 'react-navigation-header-buttons';
 
 import UserHeader from '../components/UserProfile/UserHeader';
 import AddButton from '../components/FeedPosts/AddPost/AddButton';
+import SignOutButton from '../components/Login/SignOutButton';
 
 const UserProfile = props =>{
     return (
@@ -16,6 +17,17 @@ const UserProfile = props =>{
 
 UserProfile.navigationOptions = ({ navigation }) =>{
     return {
+        headerLeft: () =>{
+            <HeaderButtons HeaderButtonComponent={SignOutButton}>
+                <Item 
+                    title='Sign Out'
+                    iconName='sign-out'
+                    onPress={() =>{
+                        
+                    }}
+                />
+            </HeaderButtons>
+        },
         headerRight: () =>(
             <HeaderButtons HeaderButtonComponent={AddButton}>
                 <Item 
