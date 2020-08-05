@@ -28,8 +28,8 @@ const StartUp = props => {
                 return; 
             }
             
-            props.navigation.navigate('App');
             dispatch(authActions.authenticate(token));
+            props.navigation.navigate('App');
         };
 
         tryLogin();
