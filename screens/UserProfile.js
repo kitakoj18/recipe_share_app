@@ -17,17 +17,19 @@ const UserProfile = props =>{
 
 UserProfile.navigationOptions = ({ navigation }) =>{
     return {
-        headerLeft: () =>{
+        headerLeft: () =>(
             <HeaderButtons HeaderButtonComponent={SignOutButton}>
                 <Item 
                     title='Sign Out'
                     iconName='sign-out'
                     onPress={() =>{
-                        
+                        navigation.navigate({
+                            
+                        })
                     }}
                 />
             </HeaderButtons>
-        },
+        ),
         headerRight: () =>(
             <HeaderButtons HeaderButtonComponent={AddButton}>
                 <Item 
