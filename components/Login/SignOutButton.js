@@ -9,20 +9,21 @@ const SignOutButton = props =>{
 
     const dispatch = useDispatch();
 
-    const dispatchLogout = (navigation) =>{
+    const dispatchLogout = () =>{
         dispatch(authActions.logout());
-        navigation.navigate({
-            routeName: 'Login'
-        })
+        // do not need to navigate to login because the dispatch will cause token to be reset,
+        // which will cause the useEffect() function in NavigationContainer to trigger
+        // and there, the user will be redirected to login page
+        // navigation.navigate({
+        //     routeName: 'Login'
+        // })
     }
 
     return (
         <Octicons
             name='sign-out'
             size={23}
-            onPress={()=>{
-                dispatchLogout(props.navigation)
-            }}
+            onPress={dispatchLogout}
         />
     )
 }

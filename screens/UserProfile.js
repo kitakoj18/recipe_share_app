@@ -21,9 +21,7 @@ UserProfile.navigationOptions = ({ navigation }) =>{
     return {
         headerLeft: () =>(
             <View style={styles.signOutArea}>
-                <SignOutButton
-                    navigation={navigation}
-                />
+                <SignOutButton/>
             </View>
         ),
         headerRight: () =>(
