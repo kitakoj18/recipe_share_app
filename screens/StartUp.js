@@ -28,7 +28,10 @@ const StartUp = props => {
                 return; 
             }
             
-            dispatch(authActions.authenticate(token));
+            // calculate remaining time in MS before token expires
+            // dateExpiration is date of token expiration, .getTime() gives time in MS --> subtract this from current time in MS
+            const remainingMSExpiration = dateExpiration.getTime() - new Date().getTime();
+            dispatch(authActions.authenticate(token, remainingMSExpiration));
             props.navigation.navigate('App');
         };
 
