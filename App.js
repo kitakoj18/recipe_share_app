@@ -4,8 +4,8 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 
-import RootNavigator from './navigation/AppNav';
 import authReducer from './store/reducers/auth';
+import NavigationContainer from './navigation/NavigationContainer';
 
 const rootReducer = combineReducers({
   auth: authReducer
@@ -17,7 +17,7 @@ export default function App() {
   return (
 
     <Provider store={store}>
-      <RootNavigator />
+      <NavigationContainer />
     </Provider>
 
   );
