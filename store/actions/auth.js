@@ -5,8 +5,11 @@ import axios from 'axios';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 
-export const authenticate = (token) =>{
-    return {type: AUTHENTICATE, token: token};
+export const authenticate = (token, expirationMS) =>{
+    return dispatch =>{
+        dispatch(setLogoutTimer(expirationMS));
+        dispatch({type: AUTHENTICATE, token: token});
+    }
 };
 
 export const login = (email, password) =>{
@@ -26,20 +29,43 @@ export const login = (email, password) =>{
         }
 
         const resData = await res.data;
-        dispatch(authenticate(resData.token));
+        const token = resData.token;
+        const expirationMS = parseInt(resData.expiresIn);
+
+        dispatch(authenticate(token, expirationMS));
 
         //save expirationDate into constant
         //expiration length (1H) provided by backend in MS as a string
         //new Date().getTime() gives current time in MS so wrap it in another new Date to timestamp date
-        const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn));
+        const expirationDate = new Date(new Date().getTime() + expirationMS);
 
-        saveUserDataToStorage(resData.token, expirationDate);
+        saveUserDataToStorage(token, expirationDate);
     };
 };
 
+let timer;
+
 export const logout = () =>{
+    clearLogoutTimer();
+    // this returns promise, could return dispatch function if we needed to wait for removeItem to finish
+    // but don't need it to so we can immediately return dispatch action
+    AsyncStorage.removeItem('userData');
     return {type: LOGOUT};
-}
+};
+
+const setLogoutTimer = expirationMS =>{
+    return dispatch =>{
+        timer = setTimeout(() =>{
+            dispatch(logout())
+        }, expirationMS)
+    }
+};
+
+const clearLogoutTimer = () =>{
+    if(timer){
+        clearTimeout(timer);
+    }
+};
 
 const saveUserDataToStorage = (token, expirationDate) =>{
     AsyncStorage.setItem(
@@ -49,4 +75,4 @@ const saveUserDataToStorage = (token, expirationDate) =>{
             expirationDate: expirationDate.toISOString()
         })
     )
-}
+};
